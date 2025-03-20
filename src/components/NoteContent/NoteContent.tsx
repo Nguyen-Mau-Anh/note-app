@@ -4,7 +4,10 @@ import { Note } from '../../types/Note';
 
 interface NoteContentProps {
   selectedNote: Note | null;
+  onTitleChange: (title: string) => void;
+  onContentChange: (content: string) => void;
   onSave: (note: Note) => void;
+  selected: boolean;
   isSidebarOpen: boolean;
   isTrashOpen: boolean;
   onCreateNote: () => void;
@@ -12,7 +15,10 @@ interface NoteContentProps {
 
 const NoteContent: React.FC<NoteContentProps> = ({
   selectedNote,
+  onTitleChange,
+  onContentChange,
   onSave,
+  selected,
   isSidebarOpen,
   isTrashOpen,
   onCreateNote
@@ -35,12 +41,16 @@ const NoteContent: React.FC<NoteContentProps> = ({
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (isTrashOpen || !draftNote) return;
-    setDraftNote(prev => prev ? { ...prev, title: e.target.value } : null);
+    const newTitle = e.target.value;
+    setDraftNote(prev => prev ? { ...prev, title: newTitle } : null);
+    onTitleChange(newTitle);
   };
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (isTrashOpen || !draftNote) return;
-    setDraftNote(prev => prev ? { ...prev, content: e.target.value } : null);
+    const newContent = e.target.value;
+    setDraftNote(prev => prev ? { ...prev, content: newContent } : null);
+    onContentChange(newContent);
   };
 
   const handleSave = () => {

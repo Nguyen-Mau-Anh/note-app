@@ -78,11 +78,11 @@ const Sidebar: React.FC<SidebarProps> = ({
           </div>
         </div>
 
-        <div className="notes-section">
+        <div className="notes-section" role="region" aria-label="Notes">
           <div className="notes-header">
             <h2>{isTrashOpen ? 'Trash' : 'Notes'}</h2>
             {!isTrashOpen && (
-              <button onClick={onNewNote}>
+              <button onClick={onNewNote} data-testid="create-note-button">
                 <span className="material-symbols-outlined">add</span>
               </button>
             )}
@@ -120,6 +120,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                             onRestoreNote(note.id);
                           }}
                           title="Restore note"
+                          aria-label={`Restore ${note.title}`}
                         >
                           <span className="material-symbols-outlined">restore</span>
                         </button>
@@ -130,6 +131,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                             onPermanentDelete(note.id);
                           }}
                           title="Delete permanently"
+                          aria-label={`Permanently delete ${note.title}`}
                         >
                           <span className="material-symbols-outlined">delete_forever</span>
                         </button>
@@ -142,6 +144,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                           onDeleteNote(note.id);
                         }}
                         title="Move to trash"
+                        aria-label={`Delete ${note.title}`}
                       >
                         <span className="material-symbols-outlined">delete</span>
                       </button>
